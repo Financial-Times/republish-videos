@@ -44,4 +44,7 @@ grep -B 5 -A 5 1000142350001 videos.txt
 # and verify on the read side if they published correctly.
 # They may not always be present, publishes could be deletes as well.
 https://pre-prod-up.ft.com/enrichedcontent/cea579c3-900f-3e2e-aa4a-0a28decd0f62
+
+# you may also check the following address to see deleted videos as well.
+https://pub-pre-prod-up.ft.com/__nativerw/brightcove/cea579c3-900f-3e2e-aa4a-0a28decd0f62
 ```
