@@ -37,4 +37,11 @@ cat videos.txt | jq '.[].identifiers[].identifierValue' > identifiers.txt
 
 # republish - Attention!!
 ruby republish-videos.rb pub-prod-uk identifiers.txt
+
+# search random ids' respective uuid 
+grep -B 5 -A 5 1000142350001 videos.txt
+
+# and verify on the read side if they published correctly.
+# They may not always be present, publishes could be deletes as well.
+https://pre-prod-up.ft.com/enrichedcontent/cea579c3-900f-3e2e-aa4a-0a28decd0f62
 ```
