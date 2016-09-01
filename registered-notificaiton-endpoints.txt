@@ -1,0 +1,44 @@
+[
+  {
+    "service_account": "2221711291001",
+    "id": "a0e79913-ccd5-4f36-91a1-f61c22c777ef",
+    "events": "video-change",
+    "endpoint": "https://pub-prod-up.ft.com/notification/brightcove/metadata"
+  },
+  {
+    "service_account": "2221711291001",
+    "id": "e60eab5a-c4d9-439f-a01c-883cabc59a62",
+    "events": "video-change",
+    "endpoint": "https://pub-prod-up.ft.com/notification/brightcove/content"
+  },
+  {
+    "service_account": "2221711291001",
+    "id": "cd9bc1fb-dbfd-4548-9b35-09f841db13ed",
+    "events": "video-change",
+    "endpoint": "https://pub-pre-prod-up.ft.com/notification/brightcove/metadata"
+  },
+  {
+    "service_account": "2221711291001",
+    "id": "a35aa9c7-cefa-40dd-9222-e7216bccfa13",
+    "events": "video-change",
+    "endpoint": "https://pub-pre-prod-up.ft.com/notification/brightcove/content"
+  },
+  {
+    "service_account": "2221711291001",
+    "id": "5e831b0d-9d45-43b1-9464-86421e0feb4d",
+    "events": "video-change",
+    "endpoint": "https://pub-xp-up.ft.com/notification/brightcove/metadata"
+  },
+  {
+    "service_account": "2221711291001",
+    "id": "c456f1c2-f682-4a56-a276-93eab2075e87",
+    "events": "video-change",
+    "endpoint": "https://pub-xp-up.ft.com/notification/brightcove/content"
+  },
+  {
+    "service_account": "2221711291001",
+    "id": "7492891d-f012-46af-b571-060ae180bfbe",
+    "events": "video-change",
+    "endpoint": "https://brightcove-notifier-up-test.ft.com/notify"
+  }
+]
