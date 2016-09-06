@@ -36,7 +36,7 @@ mv videos-cut.txt videos.txt
 cat videos.txt | jq '.[].identifiers[].identifierValue' > identifiers.txt
 
 # republish - Attention!!
-ruby republish-videos.rb pub-prod-uk identifiers.txt
+ruby republish-videos.rb pub-prod-uk identifiers.txt "Basic dXB..." 16 > republish-videos.log
 
 # search random ids' respective uuid 
 grep -B 5 -A 5 1000142350001 videos.txt
