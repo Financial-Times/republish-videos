@@ -30,3 +30,20 @@ example:
 "1007994235001"
 "1008118387001"
 ```
+
+## Output format
+
+example:
+
+```
+date='2016-09-07 13:22:36 +0300' thread=5 n=0 tid=republish-video-1002020647001 path='/force-notify/1002020647001' resp=200
+date='2016-09-07 13:22:36 +0300' thread=12 n=0 tid=republish-video-1009492286001 path='/force-notify/1009492286001' resp=200
+date='2016-09-07 13:22:36 +0300' thread=1 n=0 tid=republish-video-1000147905001 path='/force-notify/1000147905001' resp=200
+date='2016-09-07 13:22:36 +0300' thread=13 n=0 tid=republish-video-1010353240001 path='/force-notify/1010353240001' resp=200
+date='2016-09-07 13:22:36 +0300' thread=15 n=0 tid=republish-video-1010476986001 path='/force-notify/1010476986001' resp=200
+date='2016-09-07 13:22:36 +0300' thread=9 n=0 tid=republish-video-1008118387001 path='/force-notify/1008118387001' resp=200
+date='2016-09-07 13:22:36 +0300' thread=14 n=0 tid=republish-video-1010355857001 path='/force-notify/1010355857001' resp=200
+date='2016-09-07 13:22:36 +0300' thread=3 n=0 tid=republish-video-1000596923001 path='/force-notify/1000596923001' resp=200
+date='2016-09-07 13:22:36 +0300' thread=11 n=0 tid=republish-video-1009246281001 path='/force-notify/1009246281001' resp=200
+date='2016-09-07 13:22:36 +0300' thread=4 n=0 tid=republish-video-1001049056001 path='/force-notify/1001049056001' resp=200
+```

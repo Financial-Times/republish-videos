@@ -7,12 +7,13 @@ def republish_video(thread_id, video_count, video_id)
   @endpoints.each do |endpoint|
     uri = URI("#{endpoint}/#{video_id}")
     http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = true
+    # http.use_ssl = true
     request = Net::HTTP::Post.new(uri)
     request['Authorization'] = @authorization
     request['X-Request-Id'] = tid
     response = http.request(request)
     print "date='%s' thread=%s n=%s tid=%s path='%s' resp=%d\n" % [Time.now(), thread_id, video_count, tid, uri.path, response.code]
+    # sleep(0.50)
   end
 end
 
@@ -40,9 +41,9 @@ if t == nil then
 end
 
 @endpoints = [
-  # "http://localhost:8080/force-notify",
-  "https://#{environment_tag}-up.ft.com/__brightcove-notifier/force-notify",
-  "https://#{environment_tag}-up.ft.com/__brightcove-metadata-preprocessor/force-notify"
+  "http://localhost:8080/force-notify"
+  # "https://#{environment_tag}-up.ft.com/__brightcove-notifier/force-notify",
+  # "https://#{environment_tag}-up.ft.com/__brightcove-metadata-preprocessor/force-notify"
 ]
 
 ids_for_threads = Array.new
@@ -59,11 +60,11 @@ end
 threads = Array.new
 for i in 0..t-1 do
   threads << Thread.new(i) { |i|
+    sleep(rand)
     j = 0
     ids_for_threads[i].each do |id|    
       republish_video(i, j, id)
       j += 1
-      # sleep(0.10)
     end
   }
 end
