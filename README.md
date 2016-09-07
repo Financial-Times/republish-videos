@@ -1,50 +1,32 @@
 # Video republishing script
 
+This is a one-time-use republishing script for videos existing in Universal Publishing Platform.
+
+We force-notify _brightcove-notifier_ and _brightcove-metadata-notifier_, they will fetch the everything from Brightcove and send them through our publishing pipelines.
+
+After this we will have their native form in the native stores, and we could have a Jenkins job for republishing individual videos. In that future case we will not have to go to Brightcove, just take the native content from nativerw and post to notifiers.
+
+## Usage
+
+Command line arguments are: _publishing environment tag_, _file containing the video id list_, _basic authentication for the CoCo cluster_, _parallelism factor: how many parallel requests_
+
+`ruby republish-videos.rb pub-prod-uk identifiers.txt "Basic dXB..." 16 > republish-videos.log`
+
+It's recommended to save the output to a file, for after analysis.
+
+## Input file format
+
+example:
+
 ```
-# jump on a secondary mongo machine
-fleetctl ssh mongodb@2.service
-
-# obtain public ip of mongo machine
-curl http://169.254.169.254/latest/meta-data/public-ipv4
-
-# in another shell copy the mongo script to the mongo machine
-scp find-videos.js core@52.18.122.127:/tmp/find-videos.js
-
-# obtain mongo container id
-docker ps | grep mongo
-
-# copy the script to the mongo container
-docker cp /tmp/find-videos.js 60553e98af4b:/tmp/find-videos.js
-
-# run the query - Attention!
-docker exec 60553e98af4b sh -c "mongo localhost:27017/upp-store < /tmp/find-videos.js" > /tmp/videos.txt
-
-# tar the result file
-tar -czvf videos.tar.gz videos.txt
-
-# in another shell copy results to local machine
-scp core@52.18.122.127:/tmp/videos.tar.gz ./videos.tar.gz
-
-# untar results file
-tar -xzvf videos.tar.gz
-
-# strip first and last bits of the results file, to make it a valid json.
-sed '1,2d;$d' videos.txt > videos-cut.txt
-mv videos-cut.txt videos.txt
-
-# exctract only video identifiers
-cat videos.txt | jq '.[].identifiers[].identifierValue' > identifiers.txt
-
-# republish - Attention!!
-ruby republish-videos.rb pub-prod-uk identifiers.txt "Basic dXB..." 16 > republish-videos.log
-
-# search random ids' respective uuid 
-grep -B 5 -A 5 1000142350001 videos.txt
-
-# and verify on the read side if they published correctly.
-# They may not always be present, publishes could be deletes as well.
-https://pre-prod-up.ft.com/enrichedcontent/cea579c3-900f-3e2e-aa4a-0a28decd0f62
-
-# you may also check the following address to see deleted videos as well.
-https://pub-pre-prod-up.ft.com/__nativerw/brightcove/cea579c3-900f-3e2e-aa4a-0a28decd0f62
+"1000142350001"
+"1000147905001"
+"1000147915001"
+"1000596923001"
+"1001049056001"
+"1002020647001"
+"1005835904001"
+"1006678550001"
+"1007994235001"
+"1008118387001"
 ```
