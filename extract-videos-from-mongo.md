@@ -33,6 +33,10 @@ mv videos-cut.txt videos.txt
 # exctract only video identifiers
 cat videos.txt | jq '.[].identifiers[].identifierValue' > identifiers.txt
 
+# remove double quotes from beginning and ends of lines
+cat identifiers.txt | sed -n 's/.*"\([0-9]*\)".*/\1/p' > identifiers-stripped.txt
+mv identifiers-stripped.txt identifiers.txt
+
 # republish - Attention!!
 ruby republish-videos.rb pub-prod-uk identifiers.txt "Basic dXB..." 16 > republish-videos.log
 
@@ -45,4 +49,10 @@ https://pre-prod-up.ft.com/enrichedcontent/cea579c3-900f-3e2e-aa4a-0a28decd0f62
 
 # you may also check the following address to see deleted videos as well.
 https://pub-pre-prod-up.ft.com/__nativerw/brightcove/cea579c3-900f-3e2e-aa4a-0a28decd0f62
+
+# extract from the logs the ids that got republished
+cat republish-videos.log | sed -n 's/.*\/\([0-9]*\).*/\1/p' > identifiers-republished.txt
+
+# find the difference between the ids that needed republish and the ids that got republished
+grep -Fxv -f identifiers-head.txt identifiers-republished.txt
 ```

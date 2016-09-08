@@ -3,11 +3,11 @@
 require 'net/http'
 
 def republish_video(thread_id, video_count, video_id)
-  tid = "republish-video-#{video_id}"
+  tid = "republish-video-2-#{video_id}"
   @endpoints.each do |endpoint|
     uri = URI("#{endpoint}/#{video_id}")
     http = Net::HTTP.new(uri.host, uri.port)
-    # http.use_ssl = true
+    http.use_ssl = true
     request = Net::HTTP::Post.new(uri)
     request['Authorization'] = @authorization
     request['X-Request-Id'] = tid
@@ -35,34 +35,35 @@ if @authorization == nil then
   Kernel.exit(1)
 end
 
-t = ARGV[3].to_i
-if t == nil then
-  t = 1
+@t = ARGV[3].to_i
+if @t == nil then
+  @t = 1
 end
 
 @endpoints = [
-  "http://localhost:8080/force-notify"
-  # "https://#{environment_tag}-up.ft.com/__brightcove-notifier/force-notify",
-  # "https://#{environment_tag}-up.ft.com/__brightcove-metadata-preprocessor/force-notify"
+  # "http://localhost:8080/force-notify"
+  "https://#{environment_tag}-up.ft.com/__brightcove-notifier/force-notify",
+  "https://#{environment_tag}-up.ft.com/__brightcove-metadata-preprocessor/force-notify"
 ]
 
 ids_for_threads = Array.new
-for i in 0..t-1 do
-  ids_for_threads[i] = Array.new
+for i in 0..@t-1 do
+  ids_for_threads[i] = Queue.new
 end
 
 i = 0
 File.open(identifiers_filename).each do |line|
-  ids_for_threads[i] << line[1..-3]
-  i = (i + 1) % t
+  ids_for_threads[i] << line[0..-2]
+  i = (i + 1) % @t
 end
 
 threads = Array.new
-for i in 0..t-1 do
+for i in 0..@t-1 do
   threads << Thread.new(i) { |i|
     sleep(rand)
     j = 0
-    ids_for_threads[i].each do |id|    
+    until ids_for_threads[i].empty? do
+      id = ids_for_threads[i].pop
       republish_video(i, j, id)
       j += 1
     end
