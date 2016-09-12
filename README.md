@@ -6,29 +6,38 @@ We force-notify _brightcove-notifier_ and _brightcove-metadata-notifier_, they w
 
 After this we will have their native form in the native stores, and we could have a Jenkins job for republishing individual videos. In that future case we will not have to go to Brightcove, just take the native content from nativerw and post to notifiers.
 
+## Explanation
+
+To publish one video you would need to call two endpoints of our publishing stack for content and metadata. To show you how, here are two curl commands:
+
+1. `curl -i -XPOST -H"Authorization: Basic aBc..." "https://pub-prod-uk-up.ft.com/__brightcove-notifier/forece-notify/5090624180001"`
+2. `curl -i -XPOST -H"Authorization: Basic aBc..." "https://pub-prod-uk-up.ft.com/__brightcove-metadata-preprocessor/forece-notify/5090624180001"`
+
+To obtain all the ids of videos you must query our database. Useful queries and commands can be found in the [help-in-detail.md](help-in-detail.md) file.
+
 ## Usage
 
 Command line arguments are: _publishing environment tag_, _file containing the video id list_, _basic authentication for the CoCo cluster_, _parallelism factor: how many parallel requests_
 
 `ruby republish-videos.rb pub-prod-uk identifiers.txt "Basic dXB..." 16 > republish-videos.log`
 
-It's recommended to save the output to a file, for after analysis.
+It's strongly recommended to save the output to a file, for after analysis.
 
 ## Input file format
 
 example:
 
 ```
-"1000142350001"
-"1000147905001"
-"1000147915001"
-"1000596923001"
-"1001049056001"
-"1002020647001"
-"1005835904001"
-"1006678550001"
-"1007994235001"
-"1008118387001"
+1000142350001
+1000147905001
+1000147915001
+1000596923001
+1001049056001
+1002020647001
+1005835904001
+1006678550001
+1007994235001
+1008118387001
 ```
 
 ## Output format

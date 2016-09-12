@@ -3,7 +3,7 @@
 require 'net/http'
 
 def republish_video(thread_id, video_count, video_id)
-  tid = "republish-video-2-#{video_id}"
+  tid = "republish-video-3-#{video_id}"
   @endpoints.each do |endpoint|
     uri = URI("#{endpoint}/#{video_id}")
     http = Net::HTTP.new(uri.host, uri.port)
