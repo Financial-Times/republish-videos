@@ -55,4 +55,8 @@ cat republish-videos.log | sed -n 's/.*\/\([0-9]*\).*/\1/p' > identifiers-republ
 
 # find the difference between the ids that needed republish and the ids that got republished
 grep -Fxv -f identifiers-head.txt identifiers-republished.txt
+
+# stripping uuids
+cat uuids.txt | sed -n 's/.*"\(.*\)".*/\1/p' > uuids-stripped.txt
+mv uuids-stripped.txt uuids.txt
 ```
